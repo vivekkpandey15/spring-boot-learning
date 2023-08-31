@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin()
 @RestController
 @RequestMapping("/employees")
@@ -49,5 +51,17 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return ResponseEntity.ok("Employee record not removed!");
+    }
+
+    /**
+     * Get all the employees
+     */
+    @GetMapping("/getEmployeeDetails")
+    public ResponseEntity<List<Employee>> getEmployees() {
+        try {
+            return new ResponseEntity<>(employeeService.getEmployeeList(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

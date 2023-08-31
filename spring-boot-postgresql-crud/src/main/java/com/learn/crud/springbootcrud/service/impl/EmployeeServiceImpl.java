@@ -9,6 +9,9 @@ import com.learn.crud.springbootcrud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -50,5 +53,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeRepository.findById(empId).orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + empId));
         employeeRepository.delete(employeeEntity);
         return "Success";
+    }
+
+    @Override
+    public List<Employee> getEmployeeList() {
+        List<Employee> employeeList = new ArrayList<>();
+        List<EmployeeEntity> employeeEntityList = (List<EmployeeEntity>) employeeRepository.findAll();
+        for (EmployeeEntity employeeEntity :employeeEntityList){
+            employeeList.add(objectMapper.convertValue(employeeEntity, Employee.class));
+        }
+        return employeeList;
     }
 }

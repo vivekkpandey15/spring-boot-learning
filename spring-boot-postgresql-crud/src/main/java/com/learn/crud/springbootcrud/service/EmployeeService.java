@@ -3,6 +3,8 @@ package com.learn.crud.springbootcrud.service;
 import com.learn.crud.springbootcrud.model.Employee;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface EmployeeService {
 
@@ -13,4 +15,6 @@ public interface EmployeeService {
     Employee updateEmployee(Long empId, Employee employeeDetails);
 
     String removeEmployee(Long empId);
+
+    List<Employee> getEmployeeList();
 }
